@@ -20,7 +20,7 @@ body {
 .container {
   max-width: 1000px;
   margin: 0 auto;
-    /* padding: 30px; */
+
 }
 
 .header {
@@ -29,22 +29,13 @@ body {
   align-items: center;
 }
 
-.profile {
-  display: flex;
-  align-items: center;
-}
-
 .home-link {
   text-decoration: none;
-  color: darkgreen;
+  color: Black;
   display: flex;
   align-items: center;
   font-size: x-large;
   font-weight: 600;
-}
-
-.home-link:hover {
-  color: black; /* Color on hover */
 }
 
 .nav a {
@@ -142,4 +133,10 @@ footer a:hover {
 
 footer{
   margin-top: 20px;
+}
+
+.education-container{
+  border: 2px solid darkgreen;
+  border-radius: 2.5%; 
+  line-height: 0.5;
 }

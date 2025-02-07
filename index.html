@@ -31,7 +31,8 @@
   <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
 </head>
 
-<body id="start" class="dark:bg-neutral-900">
+<body class="dark:bg-neutral-900">
+  <section id="start"></section>
   <!-- ========== HEADER ========== -->
   <header class="fixed top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
     <nav class="mt-4 relative max-w-2xl w-full bg-white border border-gray-200 rounded-[2rem] mx-2 py-2.5 md:flex md:items-center md:justify-between md:py-0 md:px-4 md:mx-auto dark:bg-neutral-900 dark:border-neutral-700">
@@ -63,11 +64,11 @@
 
       <div id="hs-navbar-header-floating" class="hidden hs-collapse overflow-hidden transition-all duration-300 basis-full grow md:block" aria-labelledby="hs-navbar-header-floating-collapse">
         <div class="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-3 mt-3 md:mt-0 py-2 md:py-0 md:ps-7">
-          <a class="py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-gray-800 font-medium text-gray-800 focus:outline-none dark:border-neutral-200 dark:text-neutral-200" href="#start" aria-current="page">Home</a>
-          <a class="py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200" href="#experience">Experience</a>
-          <a class="py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200" href="#publications">Publications</a>
-          <a class="py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200" href="#awards">Awards</a>
-          <a class="py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200" href="#videos">Robot Videos</a>
+          <a class="nav-link py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-gray-800 font-medium text-gray-800 focus:outline-none dark:border-neutral-200 dark:text-neutral-200" href="#start" aria-current="page">Home</a>
+          <a class="nav-link py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200" href="#experience">Experience</a>
+          <a class="nav-link py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200" href="#publications">Publications</a>
+          <a class="nav-link py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200" href="#awards">Awards</a>
+          <a class="nav-link py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200" href="#videos">Robot Videos</a>
         </div>
       </div>
     </nav>
@@ -131,8 +132,8 @@
       <!-- End About -->
 
       <!-- Work Experience -->
-      <div id="experience" class="scroll-mt-20 mt-10 sm:mt-14">
-
+      <section id="experience" class="scroll-mt-20 mt-10 sm:mt-14"></section>
+      <div>
         <div class="grow">
             <h1 class="text-lg font-medium text-gray-800 dark:text-neutral-200">
                 Work Experience
@@ -335,7 +336,9 @@
 
 
     <!-- Publications -->
-    <div id="publications" class="scroll-mt-20 my-10 sm:my-14">
+  
+    <section id="publications" class="scroll-mt-20 mt-10 sm:mt-14"></section>
+    <div>
         <h2 class="mb-5 text-lg font-medium text-gray-800 dark:text-neutral-200">
           Publications
         </h2>
@@ -381,7 +384,9 @@
       <!-- End Publications -->
 
       <!-- Skills -->
-      <div id="awards" class="scroll-mt-20 my-10 sm:my-14">
+      
+      <section id="awards" class="scroll-mt-20 mt-10 sm:mt-14"></section>
+      <div>
         <h2 class="mb-5 text-lg font-medium text-gray-800 dark:text-neutral-200">
           Awards, Skills, & Interests
         </h2>
@@ -482,9 +487,10 @@
       <!-- End Skills -->
 
 
-
       <!-- Robot Videos -->
-      <div id="videos" class="scroll-mt-20 mt-10 sm:mt-14">
+
+      <section id="videos" class="scroll-mt-20 mt-10 sm:mt-14"></section>
+      <div>
         <h2 class="mb-5 mt-5 text-lg font-medium text-gray-800 dark:text-neutral-200">
           Robot Videos
         </h2>
@@ -590,6 +596,30 @@
 
   <!-- MY SCRIPTS -->
   <!-- <script src="scripts.js"></script> -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function setActiveLink() {
+            let index = sections.length;
+
+            while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+            
+            navLinks.forEach((link) => {
+                link.classList.remove('border-gray-800', 'text-gray-800', 'dark:border-neutral-200', 'dark:text-neutral-200');
+                link.classList.add('border-transparent', 'text-gray-500', 'dark:text-neutral-400');
+            });
+
+            navLinks[index].classList.remove('border-transparent', 'text-gray-500', 'dark:text-neutral-400');
+            navLinks[index].classList.add('border-gray-800', 'text-gray-800', 'dark:border-neutral-200', 'dark:text-neutral-200');
+        }
+
+        setActiveLink();
+        window.addEventListener('scroll', setActiveLink);
+    });
+</script>
 
 </body>
 </html>

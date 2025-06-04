@@ -418,12 +418,12 @@
       </div>
     </div>
   </footer>
-  <script src="https://preline.co/assets/js/hs.theme-appearance.js"></script>
-  <script src="https://preline.co/assets/js/hs-ui.js"></script>
-
-  <!-- Script for underlining on the nav bar according the anchor links -->
+  <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+        HSStaticMethods.autoInit();
+
+        // --- Script for underlining on the nav bar according the anchor links ---
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -437,13 +437,16 @@
                 link.classList.add('border-transparent', 'text-gray-500', 'dark:text-neutral-400');
             });
 
-            navLinks[index].classList.remove('border-transparent', 'text-gray-500', 'dark:text-neutral-400');
-            navLinks[index].classList.add('border-gray-800', 'text-gray-800', 'dark:border-neutral-200', 'dark:text-neutral-200');
+            if (index >= 0 && index < navLinks.length) {
+                navLinks[index].classList.remove('border-transparent', 'text-gray-500', 'dark:text-neutral-400');
+                navLinks[index].classList.add('border-gray-800', 'text-gray-800', 'dark:border-neutral-200', 'dark:text-neutral-200');
+            }
         }
 
         setActiveLink();
         window.addEventListener('scroll', setActiveLink);
-    });
-</script>
+        }
+    );
+  </script>
 </body>
 </html>

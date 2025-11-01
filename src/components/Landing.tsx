@@ -5,6 +5,7 @@ import * as THREE from 'three';
 
 function ParticleSphere() {
   const pointsRef = useRef<THREE.Points>(null);
+  const materialRef = useRef<THREE.PointsMaterial>(null);
 
   const particlesCount = 2000;
   const positions = useMemo(() => {
@@ -32,6 +33,15 @@ function ParticleSphere() {
       pointsRef.current.rotation.x = state.clock.getElapsedTime() * 0.1;
       pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.15;
     }
+
+    // Slowly cycle through colors
+    if (materialRef.current) {
+      const time = state.clock.getElapsedTime() * 0.2;
+      const r = Math.sin(time) * 0.5 + 0.5;
+      const g = Math.sin(time + 2) * 0.5 + 0.5;
+      const b = Math.sin(time + 4) * 0.5 + 0.5;
+      materialRef.current.color.setRGB(r, g, b);
+    }
   });
 
   return (
@@ -46,6 +56,7 @@ function ParticleSphere() {
         />
       </bufferGeometry>
       <pointsMaterial
+        ref={materialRef}
         size={0.02}
         color="#ffffff"
         sizeAttenuation={true}

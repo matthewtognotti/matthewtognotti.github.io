@@ -37,8 +37,7 @@ function App() {
   }
 
   return (
-    <div className="animate-fadeIn">
-      <section id="start"></section>
+    <div className="animate-fadeIn" id="start">
       <Header />
       <main id="content">
         <div className="mx-auto w-full max-w-2xl px-4 sm:px-6 lg:px-8">

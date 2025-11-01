@@ -58,8 +58,11 @@ export default function Header() {
         <div className="flex items-center justify-between px-4 md:px-0">
           <div>
             <a
-              className="inline-block flex-none rounded-md text-xl font-semibold focus:opacity-80 focus:outline-none dark:text-neutral-200 dark:hover:text-neutral-400"
-              href="#start"
+              className="inline-block flex-none rounded-md text-xl font-semibold focus:opacity-80 focus:outline-none dark:text-neutral-200 dark:hover:text-neutral-400 cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               aria-label="Matthew Tognotti"
             >
               MT
@@ -119,13 +122,19 @@ export default function Header() {
               return (
                 <a
                   key={item.href}
-                  className={`border-s-2 px-4 py-0.5 font-medium focus:outline-none md:border-s-0 md:border-b-2 md:px-1 md:py-3 ${
+                  className={`border-s-2 px-4 py-0.5 font-medium focus:outline-none md:border-s-0 md:border-b-2 md:px-1 md:py-3 cursor-pointer ${
                     isActive
                       ? 'border-gray-800 text-gray-800 dark:border-neutral-200 dark:text-neutral-200'
                       : 'border-transparent text-gray-500 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200'
                   }`}
                   href={item.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    if (item.href === '#start') {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                    setIsOpen(false);
+                  }}
                 >
                   {item.label}
                 </a>

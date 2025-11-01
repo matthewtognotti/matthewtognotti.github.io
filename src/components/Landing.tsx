@@ -7,7 +7,7 @@ function ParticleSphere() {
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.PointsMaterial>(null);
 
-  const particlesCount = 2000;
+  const particlesCount = 5000;
   const positions = useMemo(() => {
     const pos = new Float32Array(particlesCount * 3);
     const radius = 1;

@@ -72,26 +72,67 @@ interface LandingProps {
 }
 
 export default function Landing({ onEnter }: LandingProps) {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [showRickRoll, setShowRickRoll] = useState(false);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [displayedUsernameLabel, setDisplayedUsernameLabel] = useState('');
+  const [displayedPasswordLabel, setDisplayedPasswordLabel] = useState('');
+  const [showInputs, setShowInputs] = useState(false);
+  const [borderDrawn, setBorderDrawn] = useState(false);
+  const usernameRef = useRef<HTMLInputElement>(null);
+
+  const usernameLabel = 'USERNAME';
+  const passwordLabel = 'PASSWORD';
 
   useEffect(() => {
-    if (showPassword && inputRef.current) {
-      inputRef.current.focus();
+    if (showLogin) {
+      // Start border animation
+      const borderTimer = setTimeout(() => setBorderDrawn(true), 100);
+
+      // Type out both labels after border draws
+      const typeTimer = setTimeout(() => {
+        let i = 0;
+        const totalLength = usernameLabel.length + passwordLabel.length;
+        const typeInterval = setInterval(() => {
+          if (i < usernameLabel.length) {
+            setDisplayedUsernameLabel(usernameLabel.slice(0, i + 1));
+          } else if (i < totalLength) {
+            setDisplayedPasswordLabel(passwordLabel.slice(0, i - usernameLabel.length + 1));
+          } else {
+            clearInterval(typeInterval);
+            // Show inputs after typing completes
+            setTimeout(() => {
+              setShowInputs(true);
+              usernameRef.current?.focus();
+            }, 200);
+          }
+          i++;
+        }, 80);
+      }, 800);
+
+      return () => {
+        clearTimeout(borderTimer);
+        clearTimeout(typeTimer);
+      };
     }
-  }, [showPassword]);
+  }, [showLogin]);
+
+  useEffect(() => {
+    if (showInputs && usernameRef.current) {
+      usernameRef.current.focus();
+    }
+  }, [showInputs]);
 
   const handleGraphicClick = () => {
-    if (!showPassword) {
-      setShowPassword(true);
+    if (!showLogin) {
+      setShowLogin(true);
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.toLowerCase() === 'password') {
+    if (username.toLowerCase() === 'user' && password.toLowerCase() === 'password') {
       onEnter();
     } else {
       setShowRickRoll(true);
@@ -115,52 +156,141 @@ export default function Landing({ onEnter }: LandingProps) {
     );
   }
 
-  if (showPassword) {
+  if (showLogin) {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center">
+        <style>
+          {`
+            @keyframes glowPulse {
+              0%, 100% { filter: drop-shadow(0 0 5px #00aaff); }
+              50% { filter: drop-shadow(0 0 15px #00aaff); }
+            }
+          `}
+        </style>
         <form
           onSubmit={handleSubmit}
-          className="text-center"
+          className="text-center relative"
           style={{
             fontFamily: '"Courier New", Courier, monospace',
           }}
         >
-          <div
-            className="border-2 p-6 rounded-xl"
+          <svg
+            width="280"
+            height="240"
+            className="absolute top-0 left-0"
             style={{
-              borderColor: '#00ff00',
-              backgroundColor: 'rgba(0, 0, 0, 0.9)',
-              boxShadow: '0 0 20px rgba(0, 255, 0, 0.3)',
+              animation: borderDrawn ? 'glowPulse 2s ease-in-out infinite' : 'none',
             }}
           >
+            <rect
+              x="2"
+              y="2"
+              width="276"
+              height="236"
+              rx="12"
+              ry="12"
+              fill="rgba(0, 0, 0, 0.9)"
+              stroke="#00aaff"
+              strokeWidth="2"
+              strokeDasharray="1000"
+              strokeDashoffset={borderDrawn ? 0 : 1000}
+              style={{
+                transition: 'stroke-dashoffset 0.7s ease-out',
+              }}
+            />
+          </svg>
+          <div
+            className="relative p-6"
+            style={{ width: '280px', height: '240px' }}
+          >
+            {/* Username Label */}
             <div
-              className="text-lg mb-4 tracking-wider"
-              style={{ color: '#00ff00' }}
+              className="text-sm mb-1 tracking-wider text-left"
+              style={{
+                color: '#00aaff',
+                minHeight: '20px',
+              }}
             >
-              ENTER PASSWORD
+              {displayedUsernameLabel}
+              {displayedUsernameLabel.length < usernameLabel.length && displayedUsernameLabel.length > 0 && (
+                <span className="animate-pulse">_</span>
+              )}
             </div>
-            <div className="flex items-center gap-2">
-              <span style={{ color: '#00ff00' }}>&gt;</span>
+            {/* Username Input */}
+            <div
+              className="flex items-center gap-2 mb-4"
+              style={{
+                opacity: showInputs ? 1 : 0,
+                transition: 'opacity 0.3s ease-in',
+              }}
+            >
+              <span style={{ color: '#00aaff' }}>&gt;</span>
               <input
-                ref={inputRef}
+                ref={usernameRef}
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="bg-transparent border-none outline-none text-lg tracking-widest"
+                style={{
+                  color: '#00aaff',
+                  caretColor: '#00aaff',
+                  width: '200px',
+                }}
+                autoComplete="off"
+                tabIndex={1}
+              />
+            </div>
+            {/* Password Label */}
+            <div
+              className="text-sm mb-1 tracking-wider text-left"
+              style={{
+                color: '#00aaff',
+                minHeight: '20px',
+              }}
+            >
+              {displayedPasswordLabel}
+              {displayedPasswordLabel.length < passwordLabel.length && displayedPasswordLabel.length > 0 && (
+                <span className="animate-pulse">_</span>
+              )}
+            </div>
+            {/* Password Input */}
+            <div
+              className="flex items-center gap-2"
+              style={{
+                opacity: showInputs ? 1 : 0,
+                transition: 'opacity 0.3s ease-in',
+              }}
+            >
+              <span style={{ color: '#00aaff' }}>&gt;</span>
+              <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="bg-transparent border-none outline-none text-lg tracking-widest"
                 style={{
-                  color: '#00ff00',
-                  caretColor: '#00ff00',
+                  color: '#00aaff',
+                  caretColor: '#00aaff',
                   width: '200px',
                 }}
                 autoComplete="off"
+                tabIndex={2}
               />
-              <span
-                className="animate-pulse"
-                style={{ color: '#00ff00' }}
-              >
-                _
-              </span>
             </div>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="mt-4 px-4 py-1 text-sm tracking-wider border rounded"
+              style={{
+                opacity: showInputs ? 1 : 0,
+                transition: 'opacity 0.3s ease-in',
+                color: '#00aaff',
+                borderColor: '#00aaff',
+                backgroundColor: 'transparent',
+              }}
+              tabIndex={3}
+            >
+              LOGIN
+            </button>
           </div>
         </form>
       </div>
